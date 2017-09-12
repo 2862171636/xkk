@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .outer{
+            width: 520px;
+            height: 280px;
+            position: relative;
+            overflow: hidden;
+        }
+        .contain{
+            position: relative;
+        }
+        .item{
+            width: 520px;
+            height: 280px;
+            position: absolute;
+        }
+        .first{
+            background: url("resource/img/img1/mz.jpg");
+        }
+        .item1{
+            background: url("resource/img/img1/mz.jpg");
+            /*left: 0;*/
+        }
+        .item2{
+            background: url("resource/img/img1/mz1.jpg");
+            /*left: 520px;*/
+        }
+        .item3{
+            background: url("resource/img/img1/mz2.jpg");
+            /*left: 1040px;*/
+        }
+        .back{
+            background: url("resource/img/img1/mz2.jpg");
+        }
+        .lefts,.rights{
+            color: white;
+            font-size: 30px;
+            width: 30px;
+            height:60px;
+            position: absolute;
+            top: 50%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+        }
+        .lefts{
+            left: 0;
+        }
+        .rights{
+            right: 0;
+        }
+        .outer:hover .lefts,.outer:hover .rights{
+            display: block;
+        }
+        .lists{
+            border-radius: 8px;
+            width: 60px;
+            height: 15px;
+            background: rgba(127,127,127,0.7);
+            position: absolute;
+            left: 50%;
+            bottom: 10px;
+            margin-left: -30px;
+            padding: 2px;
+        }
+        .list{
+            width: 15px;
+            height: 15px;
+            background: #B7B7B7;
+            border-radius: 50%;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="outer">
+
+    <div class="contain" style="left: -520px; transition: all 1s;">
+        <div class="item back" style="left: 0"></div>
+        <div class="item1 item" style="left: 520px"></div>
+        <div class="item2 item" style="left: 1040px"></div>
+        <div class="item3 item" style="left: 1560px"></div>
+        <div class="item first" style="left: 2080px"></div>
+    </div>
+    <div class="lefts">
+        <
+    </div>
+    <div class="rights">
+        >
+    </div>
+
+    <div class="lists">
+
+        <div class="list" style="margin-left: 2px;background: #F40"></div>
+        <div class="list" style="margin-left: 5px"></div>
+        <div class="list" style="margin-left: 5px"></div>
+
+    </div>
+    <button class="btn" onclick="clearTime()">停止</button>
+</div>
+
+</body>
+<script>
+    var items = document.getElementsByClassName("item");
+    var contain = document.getElementsByClassName("contain")[0];
+    var outerDiv = document.getElementsByClassName("outer")[0];
+    var listDiv = document.getElementsByClassName("list");
+    var num1 = 1;
+    function moveImg() {
+
+        var left = contain.style.left;
+        left = left.substring(left.length-2,-1);
+        if(left==="-2080"){
+            contain.style.transition = "";
+            contain.style.left = "-520px";
+            setTimeout(function () {
+                contain.style.transition = "all 1s";
+                contain.style.left = "-1040px";
+            },50)
+
+        }else {
+            contain.style.left= left-520+"px";
+        }
+
+
+        for (var i = 0; i < listDiv.length; i++){
+            listDiv[i].style.background = "#B7B7B7";
+        }
+        if (num1 >= listDiv.length){
+            num1 = 0;
+        }
+        listDiv[num1].style.background = "#F40";
+        num1++;
+
+    }
+
+    var num = setInterval(moveImg,2000);
+    function clearTime() {
+        clearInterval(num);
+    }
+    outerDiv.onmouseover = function () {
+        clearTime();
+        console.log("heihei");
+    };
+    outerDiv.onmouseout = function () {
+        console.log("66666");
+        num = setInterval(moveImg,2000);
+    }
+
+</script>
+</html>
